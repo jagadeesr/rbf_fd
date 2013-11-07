@@ -7,13 +7,13 @@
 
 %% Download the package and change the directory
 disp('The rbf_fd package is now downloading ...')
-mkdir('rbfqr_v1_3')
-cd('rbfqr_v1_3')
-unzip('http://math.iit.edu/~mccomic/gaussqr/rbfqr-1.3.zip') % rbf_fd uses this package
-addpath(pwd)
-cd('..')
+
 unzip('https://github.com/jagadeesr/rbf_fd/archive/v1_0.zip') %download ...and unzip
 cd('rbf_fd-1_0') %get to the right subdirectory
+unzip('rbfqr_v1_2.zip')
+cd('rbfqr_v1_2') % rbf_fd uses this package
+rbfsetup
+cd('..')
 
 rbfdversion = 1.0;
 fprintf('\nWelcome to rbf_fd version %2.1f \n', rbfdversion);
@@ -48,4 +48,3 @@ reply = input('\n Do you want to run script to test rbf_fd?\n y/n [n]:','s');
 if any(strcmpi(reply,{'yes','y'}));
 test_main
 end
-

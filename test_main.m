@@ -30,10 +30,8 @@ testU  = u1;
 testLu = Lu1;
 RBFQR_flag = true;
     
-
-% e_opt = algo1_search_eopt();
 g = 'squareg';
-g = 'circleg';
+%g = 'circleg';
 
 [p1,p2,p3,p4,p5, pi1,pb1,pi2,pb2,pi3,pb3,pi4,pb4,pi5,pb5, dm1,dm2,dm3,dm4,dm5, np] = gen_tri_mesh(g);
 

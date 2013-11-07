@@ -4,7 +4,7 @@
 function [rmse, rmsed, u_hat] = calc_rmse(dm, points, int_pts, bound_pts, g, u, Lu, epsilon, RBFQR_flag)
 
     % Compute A Matrix to find the approximation to function 'u'
-    [A, b] = Solve_Poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, RBFQR_flag);
+    [A, b] = solve_poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, RBFQR_flag);
 
     %cond(A)
     u_hat = (A\b);

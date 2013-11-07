@@ -28,7 +28,7 @@ function Set_Xi_zeta = stencil_support_selection(dm, point_set, center)
 	m_near_pts_I = get_near_points(dm, center, m);
     m_near_points_polar = conv2polar(point_set, m_near_pts_I, center);
     
- 	Set_Xi_zeta = [1:k]; %Initialise the set to k nearest pts
+ 	Set_Xi_zeta = 1:k; %Initialise the set to k nearest pts
     alpha = get_alpha(Set_Xi_zeta, m_near_points_polar);
     if (max(alpha) <= u*min(alpha))
         Set_Xi_zeta = [center, m_near_pts_I(Set_Xi_zeta)];
@@ -64,7 +64,7 @@ function Set_Xi_zeta = stencil_support_selection(dm, point_set, center)
             
             % ii check the cost of new stencil
             Set_Xi_zeta_new = setdiff(Set_Xi_zeta_extend, elem_to_remv);
-            [alpha1, kI1] = get_alpha(Set_Xi_zeta_new, m_near_points_polar);
+            alpha1 = get_alpha(Set_Xi_zeta_new, m_near_points_polar);
             new_cost = dot(alpha1, alpha1);
             if new_cost < cost
                 %fprintf('new_cost %f\n', new_cost);
@@ -142,7 +142,8 @@ function m_near_points_polar = conv2polar(point_set, m_near_pts_I, center)
     end
 end
 
-
+% finds angle between each two neighboring points, angle bearing at the
+% center
 function [alpha, kI] = get_alpha(Set_Xi_zeta, m_near_points_polar)
 
     thetas = m_near_points_polar(1,Set_Xi_zeta);
@@ -163,11 +164,12 @@ function [alpha, kI] = get_alpha(Set_Xi_zeta, m_near_points_polar)
 
 end
 
-
+% finds the distance from the center to the each stencil points
 function m_near_pts = get_near_points(dm, center, m)
 
     dmc = dm(center,:);
     [B,I] = sort(dmc);
+    assert(B(1)==0);
     m_near_pts = I(2:m+1);
     
 end

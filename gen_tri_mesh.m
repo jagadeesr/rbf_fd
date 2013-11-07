@@ -1,3 +1,13 @@
+% GEN_TRI_MESH used to compute the mesh triangulation for upto 5 lvels of
+% refinement to be used in the shape parameter finding 
+%   Note: This is an Experimental code, incomplete and may have bugs
+%
+%   See also STENCIL_SUPPORT_SELECTION
+%
+% Reference: O. Davydov, D.T. Oanh, On the optimal shape parameter for 
+% Gaussian radial basis function finite difference approximation of the 
+% Poisson equation, Comput. Math. Appl. 62 (2011) 2143–2161
+
 function [p1,p2,p3,p4,p5, pi1,pb1,pi2,pb2,pi3,pb3,pi4,pb4,pi5,pb5, dm1,dm2,dm3,dm4,dm5, np] = gen_tri_mesh(g)
 
     circ_flag = false;
@@ -10,13 +20,13 @@ function [p1,p2,p3,p4,p5, pi1,pb1,pi2,pb2,pi3,pb3,pi4,pb4,pi5,pb5, dm1,dm2,dm3,d
     [p2,e2,t2] = refinemesh(g,p1,e1,t1);
     [p3,e3,t3] = refinemesh(g,p2,e2,t2);
     [p4,e4,t4] = refinemesh(g,p3,e3,t3);
-    [p5,e5,t5] = refinemesh(g,p4,e4,t4);
+    [p5      ] = refinemesh(g,p4,e4,t4);
     
     dm1 = DistanceMatrix(p1', p1');
     dm2 = DistanceMatrix(p2', p2');
     dm3 = DistanceMatrix(p3', p3');
     dm4 = DistanceMatrix(p4', p4');
-    dm5 = zeros(length(p5), length(p5)); %
+    dm5 = zeros(length(p5), length(p5)); %Not computed for now as it is very slow and memory overflow
     %dm5 = get_dm(p5); %
     %dm5 = DistanceMatrix(p5', p5');
     %dist2C = bsxfun(@minus, point_set, point_set(:,center));
@@ -55,23 +65,25 @@ function [int_pts, bound_pts, npi, npb] = get_i_e_pts(points, circ_flag)
     npb = length(bound_pts);
 end
 
+%{
 function d1 = get_disk_with_hole()
 
-gd = [4.000000000000000   3.000000000000000; ...
-                   0   4.000000000000000; ...
-                   0  -0.400000000000000; ...
-   1.000000000000000   0.400000000000000; ...
-   1.000000000000000   0.400000000000000; ...
-                   0  -0.400000000000000; ...
-                   0   0.400000000000000; ...
-                   0   0.400000000000000; ...
-                   0  -0.400000000000000; ...
-                   0  -0.400000000000000];
+    gd = [4.000000000000000   3.000000000000000; ...
+                       0   4.000000000000000; ...
+                       0  -0.400000000000000; ...
+       1.000000000000000   0.400000000000000; ...
+       1.000000000000000   0.400000000000000; ...
+                       0  -0.400000000000000; ...
+                       0   0.400000000000000; ...
+                       0   0.400000000000000; ...
+                       0  -0.400000000000000; ...
+                       0  -0.400000000000000];
 
-sf = [E1-R1];
-ns = [69    82; ...
-    49    49];
+    sf = [E1-R1];
+    ns = [69    82; ...
+        49    49];
 
-d1=decsg(gd,sf,ns)
+    d1=decsg(gd,sf,ns)
 
 end
+%}

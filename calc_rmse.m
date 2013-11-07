@@ -1,12 +1,12 @@
 % CALC_RMSE calculates Root mean square error for the approximated function
 % with repect to the original function
 
-function [rmse, rmsed, u_hat] = calc_rmse(dm, points, int_pts, bound_pts, g, u, Lu, epsilon, RBFQR_flag)
+function [rmse, rmsed, stable_flag, u_hat] = calc_rmse(dm, points, int_pts, bound_pts, g, u, Lu, epsilon, RBFQR_flag)
 
     % Compute A Matrix to find the approximation to function 'u'
-    [A, b] = solve_poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, RBFQR_flag);
+    [A, b, stable_flag] = solve_poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, RBFQR_flag);
 
-    %cond(A)
+    %fprintf('cond(A) %f\n, cond(A));
     u_hat = (A\b);
     Lu_exact = zeros(length(points), 1);
     u_exact  =  u(points(1,:), points(2,:))';

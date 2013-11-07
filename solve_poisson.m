@@ -22,11 +22,12 @@
 % Gaussian radial basis function finite difference approximation of the 
 % Poisson equation, Comput. Math. Appl. 62 (2011) 2143–2161.
 
-function [A, b] = solve_poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, RBFQR_flag)
+function [A, b, stable_flag] = solve_poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, RBFQR_flag)
 
     A = zeros(length(points'), length(points'));
     b = zeros(length(points'), 1);
     v = zeros(length(points'), 1);
+    stable_flag = false;
     
     for i=bound_pts
         A(i,i) = 1.0;
@@ -44,7 +45,8 @@ function [A, b] = solve_poisson(dm, points, int_pts, bound_pts, g, Lu, epsilon, 
         stencil_support = stencil_support_selection(dm, points, center);
 
         % compute Stencil weights
-        [weights, v(i)] = find_stencil_weights(points(:,stencil_support)', epsilon, RBFQR_flag);
+        [weights, v(i), stable_flag_i] = find_stencil_weights(points(:,stencil_support)', epsilon, RBFQR_flag);
+        stable_flag = stable_flag || stable_flag_i;
         A(i,stencil_support) = real(weights);
     end
 end

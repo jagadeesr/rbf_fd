@@ -22,13 +22,13 @@ function [p1,p2,p3,p4,p5, pi1,pb1,pi2,pb2,pi3,pb3,pi4,pb4,pi5,pb5, dm1,dm2,dm3,d
     [p4,e4,t4] = refinemesh(g,p3,e3,t3);
     [p5      ] = refinemesh(g,p4,e4,t4);
     
-    dm1 = DistanceMatrix(p1', p1');
-    dm2 = DistanceMatrix(p2', p2');
-    dm3 = DistanceMatrix(p3', p3');
-    dm4 = DistanceMatrix(p4', p4');
+    dm1 = distance_matrix(p1', p1', true);
+    dm2 = distance_matrix(p2', p2', true);
+    dm3 = distance_matrix(p3', p3', true);
+    dm4 = distance_matrix(p4', p4', true);
     dm5 = zeros(length(p5), length(p5)); %Not computed for now as it is very slow and memory overflow
     %dm5 = get_dm(p5); %
-    %dm5 = DistanceMatrix(p5', p5');
+    %dm5 = distance_matrix(p5', p5', true);
     %dist2C = bsxfun(@minus, point_set, point_set(:,center));
     %dmc = dot(dist2C,dist2C);
     
@@ -43,7 +43,7 @@ function [p1,p2,p3,p4,p5, pi1,pb1,pi2,pb2,pi3,pb3,pi4,pb4,pi5,pb5, dm1,dm2,dm3,d
 end
 
 function dm = get_dm(point_set)
-    dm = zeros(length(point_set), length(point_set)); %DistanceMatrix(p5', p5');
+    dm = zeros(length(point_set), length(point_set)); %distance_matrix(p5', p5', true);
     for center=1:length(point_set)
         dmc = bsxfun(@minus, point_set, point_set(:,center));
         dm(center,:) = dot(dmc,dmc);

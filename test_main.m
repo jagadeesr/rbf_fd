@@ -53,7 +53,6 @@ for epsilon=epvec
     [err_rbfdir(i,2), rmsed(i,2), stable_flag(i,2)] = calc_rmse(dm2, p2,pi2,pb2, testU, testU, testLu, epsilon, RBFQR_flag);
     %[err_rbfdir(i,3), rmsed(i,3), stable_flag(i,3)] = calc_rmse(dm3, p3,pi3,pb3, testU, testU, testLu, epsilon, RBFQR_flag);
     %[err_rbfdir(i,4), rmsed(i,4), stable_flag(i,4)] = calc_rmse(dm4, p4,pi4,pb4, testU, testU, testLu, epsilon, RBFQR_flag);
-    %[err_rbfdir(i,5), rmsed(i,5), stable_flag(i,5)] = calc_rmse(dm5, p5,pi5,pb5, testU, testU, testLu, epsilon, RBFQR_flag);
     
     if debug==true, fprintf('epsilon %1.2f, rmse %1.4f, rmsed %1.4f\n', epsilon, rmse, rmsed), end
 
@@ -77,8 +76,7 @@ ylim([10^-5 100]);
 legend(sprintf('E1[%di,%db],\\epsilon%1.2f', np(1,1), np(1,2), epvec(Ieopt1)), ...
        sprintf('E2[%di,%db],\\epsilon%1.2f', np(2,1), np(2,2), epvec(Ieopt2)), ...
        sprintf('E3[%di,%db],\\epsilon%1.2f', np(3,1), np(3,2), epvec(Ieopt3)), ...
-       sprintf('E4[%di,%db],\\epsilon%1.2f', np(4,1), np(4,2), epvec(Ieopt4))  ); %, ...
-       %sprintf('E5[%di,%db],\\epsilon%1.2f', np(5,1), np(5,2), epvec(Ieopt5)));
+       sprintf('E4[%di,%db],\\epsilon%1.2f', np(4,1), np(4,2), epvec(Ieopt4))  );
 hold on
 x = find(stable_flag(:,1)==true, 1, 'last'); plot(epvec(x), err_rbfdir(x,1), 'r*');
 x = find(stable_flag(:,2)==true, 1, 'last'); plot(epvec(x), err_rbfdir(x,2), 'r*');
@@ -92,8 +90,7 @@ ylabel('Diff RMS error')
 legend(sprintf('E1[%di,%db]', np(1,1), np(1,2)), ...
        sprintf('E2[%di,%db]', np(2,1), np(2,2)), ...
        sprintf('E3[%di,%db]', np(3,1), np(3,2)), ...
-       sprintf('E4[%di,%db]', np(4,1), np(4,2))  ); %, ...
-       %sprintf('E5[%di,%db]', np(5,1), np(5,2)));
+       sprintf('E4[%di,%db]', np(4,1), np(4,2))  );
 hold on
 x = find(stable_flag(:,1)==true, 1, 'last'); plot(epvec(x), rmsed(x,1), 'r*');
 x = find(stable_flag(:,2)==true, 1, 'last'); plot(epvec(x), rmsed(x,2), 'r*');

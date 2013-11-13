@@ -42,6 +42,7 @@ function [p1,p2,p3,p4,p5, pi1,pb1,pi2,pb2,pi3,pb3,pi4,pb4,pi5,pb5, dm1,dm2,dm3,d
 
 end
 
+% Computes Distance Matrix
 function dm = get_dm(point_set)
     dm = zeros(length(point_set), length(point_set)); %distance_matrix(p5', p5', true);
     for center=1:length(point_set)
@@ -51,6 +52,7 @@ function dm = get_dm(point_set)
     %dmc = dot(dist2C,dist2C);
 end
 
+% Find the Index interior and boundary points
 function [int_pts, bound_pts, npi, npb] = get_i_e_pts(points, circ_flag)
     if circ_flag
         int_pts = find(abs(dot(points,points)-1)>1e-14);

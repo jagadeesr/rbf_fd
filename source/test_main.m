@@ -2,6 +2,14 @@
 clear
 format compact
 
+% Install RBF-QR Package if not found
+if exist('rbfqr_v1_2', 'dir')~=7
+    unzip('https://raw.github.com/jagadeesr/rbf_fd/master/rbfqr_v1_2.zip')
+    cd('rbfqr_v1_2') % we need this package
+    rbfsetup
+    cd('..')
+end
+
 debug = false;
 
 u1  = @(x,y) (sin(pi*x).*sin(pi*y));
@@ -42,6 +50,8 @@ epvec=logspace(log10(0.01),log10(5),50); %debug
 err_rbfdir = zeros(length(epvec),5);
 stable_flag = zeros(length(epvec),5);
 rmsed = zeros(length(epvec),5);
+
+fprintf('Test running ... wait \n');
 
 i = 1;
 tstart1 = tic;

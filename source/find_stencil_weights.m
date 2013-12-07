@@ -4,7 +4,7 @@
 %  [weights, v] = FIND_STENCIL_WEIGHTS(stencil_points, epsi, RBFQR_flag)
 %    stencil_points: set of stencil points
 %    epsi: shape parameter for Gaussian RBF (epsilon)
-%    RBFQR_flag: Flag if 'true' allows using stable computation else only
+%    RBFQR_flag: Flag, if 'true' allows using stable computation else only
 %                direct computation used
 %
 %   See also STENCIL_SUPPORT_SELECTION

@@ -5,6 +5,10 @@ classdef ut_solve_poisson < matlab.unittest.TestCase
         % ut_solve_poisson tests solutions to the RBF-FD Approximation
 
         function test1(testCase)
+            global GAUSSQR_PARAMETERS
+            if ~isstruct(GAUSSQR_PARAMETERS)
+                error('Please run test_main before running this test')
+            end
             tol = 1e-4;
             g = 'squareg';
             
@@ -29,6 +33,10 @@ classdef ut_solve_poisson < matlab.unittest.TestCase
         end
 
         function test2(testCase)
+            global GAUSSQR_PARAMETERS
+            if ~isstruct(GAUSSQR_PARAMETERS)
+                error('Please run test_main before running this test')
+            end
             tol = 1e-4;
 
             g = 'circleg';

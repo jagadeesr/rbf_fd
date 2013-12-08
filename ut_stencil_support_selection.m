@@ -23,12 +23,12 @@ classdef ut_stencil_support_selection < matlab.unittest.TestCase
         end
 
         function test2(testCase)
-			g = 'squareg';
+			g = 'circleg';
 			[p1,e1,t1] = initmesh(g, 'Jiggle', 'on', 'Hmax',0.42);
 			[p2] = refinemesh(g,p1,e1,t1);
             dm2 = distance_matrix(p2', p2', true);
-            o2 = stencil_support_selection(dm2, p2, 45);
-			stencil_support = [45   145   144   150   177   171   143];
+            o2 = stencil_support_selection(dm2, p2, 38);
+			stencil_support = [38   130   127   129   128   126    84];
 			testCase.verifyEqual(stencil_support,o2);
         end
         
